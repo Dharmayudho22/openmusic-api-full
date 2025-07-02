@@ -1,5 +1,6 @@
 const Hapi = require('@hapi/hapi');
 const dotenv = require('dotenv');
+const inert = require('@hapi/inert');
 //const { validateSongPayload } = require('../validator/songsValidator');
 
 dotenv.config();
@@ -14,6 +15,8 @@ const init = async() => {
       },
     },
   });
+
+  await server.register(inert);
 
   //routes
   const albumRoutes = require('../routes/albums');

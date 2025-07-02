@@ -4,6 +4,7 @@ const pool = require('../database/postgres');
 const { isPlaylistCollaborator } = require('./collaborations');
 const { logActivity } = require('./playlistActivities');
 const Boom = require('@hapi/boom');
+//const PlaylistModel = require('../models/playlist-model');
 
 const verifyPlaylistOwner = async (playlistId, userId) => {
   const result = await pool.query('SELECT owner FROM playlists WHERE id = $1', [playlistId]);
@@ -77,8 +78,10 @@ const deleteSongFromPlaylist = async (playlistId, songId, userId) => {
 
   await logActivity(playlistId, songId, userId, 'delete');
 };
+
   
 module.exports = {
+  verifyPlaylistOwner,
   verifyPlaylistAccess,
   addSongToPlaylist,
   getSongsFromPlaylist,

@@ -4,6 +4,10 @@ const {
   getAlbumByIdHandler,
   putAlbumByIdHandler,
   deleteAlbumByIdHandler,
+  uploadCoverHandler,
+  likeAlbumHandler,
+  unlikeAlbumHandler,
+  getAlbumLikeCountHandler,
 } = require('../handlers/albums');
 
 const routes = [
@@ -32,6 +36,42 @@ const routes = [
     path: '/albums/{id}',
     handler: deleteAlbumByIdHandler,
   },
+  {
+    method: 'POST',
+    path: '/albums/{id}/covers',
+    handler: uploadCoverHandler,
+    options: {
+      payload: {
+        multipart: true,
+        output: 'stream',
+        parse: true,
+        allow: 'multipart/form-data'
+      }
+    }
+  },
+  {
+    method: 'POST',
+    path: '/albums/{id}/likes',
+    handler: likeAlbumHandler,
+    options: {
+      payload: {
+        multipart: true,
+        output: 'stream',
+        parse: true,
+        allow: 'multipart/form-data'
+      }
+    }
+  },
+  {
+    method: 'DELETE',
+    path: '/albums/{id}/likes',
+    handler: unlikeAlbumHandler,
+  },
+  {
+    method: 'GET',
+    path: '/albums/{id}/likes',
+    handler: getAlbumLikeCountHandler,
+  }
 ];
 
 module.exports = routes;
